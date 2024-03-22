@@ -2,29 +2,161 @@
 
 **Lab. Report \#4 – Mutation Testing and Web app testing**
 
-| Group \#:      |     |
+| Group \#:      |  6   |
 | -------------- | --- |
-| Student Names: |     |
-|                |     |
-|                |     |
-|                |     |
+| Student Names: |  Mohamed Amara   |
+|                |  Nour Ajami   |
+|                |  Krishna Shah   |
+|                |  Zuhaer Rahman   |
 
 # Introduction
 
 
 # Analysis of 10 Mutants of the Range class 
+1. **combine** Method
 
+   **Original Code:** `if(range1 == null)`
+
+   **Mutated Code:** `if(false)`
+
+   **Analysis:** This mutant was killed by the test `range1IsNullTest`, the expected range returned should have been the same as the second input range `range2`, but instead an unexpected value was received since the mutant code was using an unexpected value the max and min values.
+
+
+2.  **combine** Method
+    **Original Code:** `return range1`
+
+    **Mutated Code:** `return null`
+
+    **Analysis:** This mutant was killed by the test `range2IsNullTest`, as the expected range to be returned should have been the same as the first input range `range1` since the second one from the test is null. The return value of the mutated code was null which was unexpected and thus led to the mutant being killed.
+    
+
+3. **constrain** Method
+   **Original Code:** `if (value > this.upper)`
+
+   **Mutated Code:** `If (value >= this.upper)`
+
+   **Analysis:** This mutant survived, as there are no tests that were used to check if the value is equal to the upper range value of the range that it is being used on.
+
+
+4. **intersects** Method
+
+   **Original Code**: `return (b0 < this.upper && b1 >= b0)`
+
+   **Mutated Code**: `return (b0 <= this.upper && b1 >= b0`
+
+   **Analysis:** This mutant survived. The mutant code was not detected since there are no tests for intersects that use the arguments that are equivalent to the upper value of the range.
+
+5. **intersects** Method
+
+   **Original Code**: `if (b0 <= this.lower)`
+
+   **Mutated Code**: `if (b0 < this.lower)`
+
+   **Analysis:** This mutant survived since none of the tests for this method tested the arguments that were the same as the lower value of the range in this case.
+   
+6. **getCentralValue** Method
+
+   **Original Code:** `return this.lower / 2.0 + this.upper / 2.0`
+
+   **Mutated Code:** `return this.lower / 1.0 + this.upper / 2.0`
+
+   **Analysis:** This mutant was killed. The single test that is present for this method `centralValueBetweenRange` was able to kill this mutation since the lower bound value was behaving differently and the center value was different than the expected one.
+
+
+7. **getCentralValue** Method
+
+   **Original Code:** `return this.lower / 2.0 + this.upper / 2.0`
+
+   **Mutated Code:** `return this.lower / 2.0 + this.upper / 1.0`
+
+   **Analysis:** This mutant was killed. The single test that is present for this method `centralValueBetweenRange` was able to kill this mutation since the upper bound value was behaving differently and the center value was different than the expected one.
+
+
+8. **getLength** Method
+
+   **Original Code:** `return this.upper - this.lower`
+
+   **Mutated Code** `return this.upper + this.lower`
+
+   **Analysis:** This mutant was killed. The mutant was killed by the test `getPositiveLengthTest()` this is because the original calculation of this test is 20 - 5 = 15, but since the operation was replaced with addition then it became 20 + 5 = 25 which is the unexpected value.
+
+9. **expand** Method
+
+   **Original Code**: `double lower = range.getLowerBound() - length * lowerMargin`
+
+   **Mutated Code:** `double lower = range.getLowerBound() + length * lowerMargin`
+
+   **Analysis:** This mutation was killed. This will now compute the addition of the lower bound range with the length multiplied by the lowerMargin. The test case `expandLowerBoundToNegative()` killed this mutation because the lowerMargin is incorrect now and thus the test fails.
+
+
+10. **equals** Method
+
+    **Original Code:** `if (!(obj instanceof Range)) `
+
+    **Mutated Code:** `if (true)`
+
+    **Analysis:** This mutant was killed. The test `rangeObjectsAreEqual()` was able to detect and kill this mutation since an argument of type Range.class was sent to the equals method. This test should return true, but with this mutant code it will always return false which is the unexpected behavior that was detected and killed.
+    
 # Report all the statistics and the mutation score for each test class
 
+## Original Mutation Test Scores
+### Range Original Mutation Coverage (61%)
+![image](https://github.com/seng438-winter-2024/seng438-a4-mhabibamara/assets/103873879/9ad2e7cd-55fa-4a65-8b57-8348723d0465)
 
+### DataUtilities Original Mutation Coverage (64%)
+![image](https://github.com/seng438-winter-2024/seng438-a4-mhabibamara/assets/103873879/9f99226a-d020-4005-a9b3-bcb3a4cd9f26)
+
+## Added Tests
+### Range Class
+### DataUtilities Class
+**calculateColumnTotalRowGreaterRowTotal()**
+
+This test was made for our fourth lab assignment, and its major purpose was to check the DataUtilities.java method calculateColumnTotal's boundary condition, which is row < rowCount. This means that the method needs a rowCount that is bigger than the valid rows that are being supplied into it. This new test case is intended primarily to add to our overall mutation coverage results for this class, as we did not account for it in the prior lab. This is achieved in the test case by having row being greater with a value of 4 and rowCount only being 1. JMock, a mocking framework, is used to generate this mock object with the necessary properties.
+
+**calculateColumnTotalNEqualNull()**
+
+For this test case we were testing a different part of the method which was using JMock framework and using a mock object with the statement of if n != null this mutant had survived in our original test suite which did not account for this, hence prompting us to create a test for increasing our overall mutation coverage. This test passed a null value as n which made that row disregard this value when calculating the total sum of the values in that column which is specified.
+
+**calculateRowTotalChangedConditional()**
+
+In order to eliminate the mutation labeled "changed conditional boundary" of DataUtilities.java, which had withstood the initial test suite, we created this test to evaluate the boundary for the condition "if (col = colCount)". In order to accomplish this, we built a mock object Values2D object that returns 1 when getColumnCount() is called. We supplied the validRows option with the value 1. ColCount and col both receive a value of 1 in the calculateRowTotal function, covering the border condition and eliminating the mutant.
+
+**calculateColumnTotalRowEqualRowTotal()**
+
+Because this mutant was able to withstand our original source code, we were able to eliminate it with our test case, which once more builds on the JMock framework and creates a mock object. This time, however, we were testing for the boundary condition of making the row and rowCount equal to each other, which the method does not take into account and which causes the running total of the column to equal zero because it lacks a specific path to follow. Our test case's conditional testing of equality guaranteed that the mutation was eliminated.
 
 # Analysis drawn on the effectiveness of each of the test classes
+After adding the aforementioned test cases, the following improvements were made:
+
+## New Mutation Test Scores
+### Range New Mutation Coverage (73%)
+![image](https://github.com/seng438-winter-2024/seng438-a4-mhabibamara/assets/103873879/b58883ea-6b21-4db9-addf-c548a71542e4)
+
+### DataUtilities New Mutation Coverage (75%)
+![image](https://github.com/seng438-winter-2024/seng438-a4-mhabibamara/assets/103873879/930eed74-ad42-4f2e-97ad-b8dde44fa773)
 
 # A discussion on the effect of equivalent mutants on mutation score accuracy
+Equivalent mutants, by definition, do not alter the program's behavior as perceived by the test suite. Therefore, they should not be considered as true faults. Including equivalent mutants in the mutation score calculation can artificially inflate the mutation score, leading to a false sense of security about the code's robustness. If equivalent mutants are not properly identified and excluded from the analysis, testing efforts may be diluted as we tend to focus on addressing non-existent faults. Resources may be wasted on addressing perceived issues that do not actually impact the system's behavior, diverting attention from genuine defects. One way our group tried to mitigate this impact is by developing criteria to identify and classify equivalent mutants based on their behavior and impact on the program.
 
 # A discussion of what could have been done to improve the mutation score of the test suites
+Some ways we can improve the mutation score of the test suites can be to optimize test oracles and prioritize mutants. Clear and precise test oracles enable more effective detection of faults by providing a reliable baseline for comparison between the original code and mutated versions. Moreover, focusing testing efforts on high-priority mutants allows for more efficient allocation of resources and may result in a more significant improvement in mutation score. By implementing these strategies, we can enhance the fault-detection capabilities of both the Range and DataUtilities test suites, leading to a higher mutation score and ultimately improving the overall quality and reliability of the software.
 
 # Why do we need mutation testing? Advantages and disadvantages of mutation testing
+Mutation testing is needed in order to enhance the effectiveness of the testing process and increase the detection of faults.
+
+### Advantages
+**Efficiency:** Automation reduces the manual effort required to detect equivalent mutants.
+
+**Systematic Coverage:** Automated tools can comprehensively analyze the codebase and identify potential equivalent mutants across various scenarios.
+
+**Consistency:** Automated detection ensures consistent results and reduces the likelihood of human error.
+
+### Disadvantages
+**False Positives:** Automated tools may produce false positives, mistakenly identifying mutants as equivalent when they are not.
+
+**Limited Scope:** Automated tools might not capture all possible equivalent mutants, especially those requiring complex reasoning or domain-specific knowledge.
+
+**Tool Dependency:** The effectiveness of automated detection relies on the capabilities and limitations of the chosen mutation testing tool.
 
 # Explain your SELENUIM test case design process
 
