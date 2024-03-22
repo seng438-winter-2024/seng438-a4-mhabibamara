@@ -10,7 +10,7 @@
 |                |  Zuhaer Rahman   |
 
 # Introduction
-
+This lab comprises two parts: Mutation Testing and GUI Testing. In the first part, our group delve into Mutation Testing, learning to inject faults into a Java codebase and interpret mutation scores to improve test suite quality. The second part focused on GUI Testing, where we explored Selenium for web interface testing and compare it with alternative tools. Through hands-on exercises, our group gained practical insights into software testing methodologies and tools, preparing us for real-world testing challenges.
 
 # Analysis of 10 Mutants of the Range class 
 1. **combine** Method
@@ -167,8 +167,10 @@ Mutation testing is needed in order to enhance the effectiveness of the testing 
 # Discuss advantages and disadvantages of Selenium vs. Sikulix
 
 # How the team work/effort was divided and managed
-
+Initially, tasks were identified based on individual strengths and interests, ensuring a balanced distribution of responsibilities. Virtual meetings were held to split the work evenly and manage individual progress. Overall, this lab was a joint effort and our teamwork in all parts of the lab ensyred the smooth progress and completion of this assignment.
 
 # Difficulties encountered, challenges overcome, and lessons learned
+Initially, understanding the intricacies of mutation testing and effectively utilizing mutation testing tools presented a significant challenge. Moreover, technical issues such as compatibility issues with the mutation testing tool, setup/configuration errors, and debugging challenges emerged during the experimentation phase. These aforementioned challenges were overcome through effective communication between the group and leveraging online resources to gain a deeper understanding of the tools and analyzing the results of these tools. In conclusion, these experiences serve as valuable lessons that will inform and enrich our future endeavors in software development and testing.
 
 # Comments/feedback on the lab itself
+Overall, our group found the lab document easy to follow and work through. In addition, we found it as practical experience in assessing the efficacy of our test suites developed in previous assignments. Moreover, this lab helped broaden our understanding of GUI testing frameworks and their respective strengths and limitations. However, we think the lab was a bit too time-consuming and required lots of effort to complete.
