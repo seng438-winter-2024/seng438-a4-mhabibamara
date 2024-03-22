@@ -121,19 +121,19 @@ Testing 2 Ranges with equal lower bound, but will still not be equal overall. Th
 Description Overall: : In order to make sure that the furture mutation were killed, these test cases were made to sepecfically target the mutants that survived. Many of them were the result of missing condition checking, and so we were able to repeat somewhat identical tests with a slight variation of some of the inputs. This is due to the fact that the mutants that survived often came from conditions and math mutations.
 
 ### DataUtilities Class
-**calculateColumnTotalRowGreaterRowTotal()**
+**calculateColumnTotalRowGreaterThanRowTotalTest()**
 
 This test was made for our fourth lab assignment, and its major purpose was to check the DataUtilities.java method calculateColumnTotal's boundary condition, which is row < rowCount. This means that the method needs a rowCount that is bigger than the valid rows that are being supplied into it. This new test case is intended primarily to add to our overall mutation coverage results for this class, as we did not account for it in the prior lab. This is achieved in the test case by having row being greater with a value of 4 and rowCount only being 1. JMock, a mocking framework, is used to generate this mock object with the necessary properties.
 
-**calculateColumnTotalNEqualNull()**
+**calculateColumnTotalNEqualNullTest()**
 
 For this test case we were testing a different part of the method which was using JMock framework and using a mock object with the statement of if n != null this mutant had survived in our original test suite which did not account for this, hence prompting us to create a test for increasing our overall mutation coverage. This test passed a null value as n which made that row disregard this value when calculating the total sum of the values in that column which is specified.
 
-**calculateRowTotalChangedConditional()**
+**calculateRowTotalChangedConditionalBoundaryTest()**
 
 In order to eliminate the mutation labeled "changed conditional boundary" of DataUtilities.java, which had withstood the initial test suite, we created this test to evaluate the boundary for the condition "if (col = colCount)". In order to accomplish this, we built a mock object Values2D object that returns 1 when getColumnCount() is called. We supplied the validRows option with the value 1. ColCount and col both receive a value of 1 in the calculateRowTotal function, covering the border condition and eliminating the mutant.
 
-**calculateColumnTotalRowEqualRowTotal()**
+**calculateColumnTotalRowEqualsRowTotalTest()**
 
 Because this mutant was able to withstand our original source code, we were able to eliminate it with our test case, which once more builds on the JMock framework and creates a mock object. This time, however, we were testing for the boundary condition of making the row and rowCount equal to each other, which the method does not take into account and which causes the running total of the column to equal zero because it lacks a specific path to follow. Our test case's conditional testing of equality guaranteed that the mutation was eliminated.
 
