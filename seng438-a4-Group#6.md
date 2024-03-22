@@ -108,6 +108,18 @@ This lab comprises two parts: Mutation Testing and GUI Testing. In the first par
 
 ## Added Tests
 ### Range Class
+**lowerBoundRangeObjectsEqual()**
+
+Testing 2 Ranges with equal lower bound, but will still not be equal overall. This test case checks the equals() method with two Range objects that have the same lower bound but different upper bounds. It kills a mutant where the conditional if (!(this.upper == range.upper)) is replaced with false.
+
+**testGetLength()**
+
+**testIntersects()**
+
+**expandRangeby0()**
+
+Description Overall: : In order to make sure that the furture mutation were killed, these test cases were made to sepecfically target the mutants that survived. Many of them were the result of missing condition checking, and so we were able to repeat somewhat identical tests with a slight variation of some of the inputs. This is due to the fact that the mutants that survived often came from conditions and math mutations.
+
 ### DataUtilities Class
 **calculateColumnTotalRowGreaterRowTotal()**
 
@@ -124,6 +136,8 @@ In order to eliminate the mutation labeled "changed conditional boundary" of Dat
 **calculateColumnTotalRowEqualRowTotal()**
 
 Because this mutant was able to withstand our original source code, we were able to eliminate it with our test case, which once more builds on the JMock framework and creates a mock object. This time, however, we were testing for the boundary condition of making the row and rowCount equal to each other, which the method does not take into account and which causes the running total of the column to equal zero because it lacks a specific path to follow. Our test case's conditional testing of equality guaranteed that the mutation was eliminated.
+
+Note: More test cases were added to further enhance and strengthen our test suites
 
 # Analysis drawn on the effectiveness of each of the test classes
 After adding the aforementioned test cases, the following improvements were made:
@@ -160,11 +174,52 @@ Mutation testing is needed in order to enhance the effectiveness of the testing 
 
 # Explain your SELENUIM test case design process
 
+We started our design process by talking about possible use cases of EBay as a team.  Then for each use case, we determined different inputs and possible outputs of the application.
+
+| Functionality | Test # 1 | Test # 2 |
+| --- | --- | --- |
+| Login | Successful Login | Failed Login (wrong password)|
+| Watchlist | Empty Watchlist (no items inside) | Populated Watchlist|
+| Searching | Search with valid query | Search with invalid query|
+| Cart | Adding to Cart | Remove From Cart|
+| Shipping | Valid Shipping Information | Invalid Shipping Information|
+| Filtering | Adding a filter| Clearing Filter |
+| Navigation | Adjust Categories| Get Information|
+| Logout | Logout a previously logged in user | |
+| Messages | View user messages | |
+| Language Change | Change website Language | |
+
 # Explain the use of assertions and checkpoints
+
+
+| Functionality | Verification Point Type |
+| --- | --- |
+| Login (Test 1)| assertText |
+| Login (Test 2)| assert element present |
+| Watchlist (Test 1 & 2)| assert element present |
+| Searching (Test 1)| assertText |
+| Searching (Test 2)| assert element present |
+| Cart (Test 1 & 2)| verify element present |
+| Shipping (Test 1 & 2)| verify element present |
+| Filtering (Test 1 & 2)| verify element present |
+| Navigation (Test 1 & 2)| verify text |
+| Logout (Test 1)| assert text |
+| Messages (Test 1)| assert text |
+| Language Change (Test 1)| assert text |
+
+Assertions and checkpoints were used towards the end of each test to verify whether specific elements or text appear. An example of this would be the invalid login test, where we made sure that the error message and icon elements were present.
+
 
 # how did you test each functionaity with different test data
 
+We tested each functionality with different data by thinking of the possible outputs for each use case. An example of this would using valid/invalid information for a login and using a valid/invalid query for searching for a item. However, some of the functionality we tested only made sense to use 1 test case (logging out), as there were no other possible data inputs/ways to achieve the test.
+
 # Discuss advantages and disadvantages of Selenium vs. Sikulix
+
+- Selenium (Advantages) : Ease of access, installation and helpful features such as pausing mid-test. 
+- Selenium (Disadvantages) : The IDE had a hard time replicating tests that included hover events, often leading the test to stall and then fail.
+- Sikulix (Advantages) : Ability to use images allowed the tests to work more smoothly with complex events (hovering)
+- Sikulix (Disadvantages) : Very slow
 
 # How the team work/effort was divided and managed
 Initially, tasks were identified based on individual strengths and interests, ensuring a balanced distribution of responsibilities. Virtual meetings were held to split the work evenly and manage individual progress. Overall, this lab was a joint effort and our teamwork in all parts of the lab ensyred the smooth progress and completion of this assignment.
